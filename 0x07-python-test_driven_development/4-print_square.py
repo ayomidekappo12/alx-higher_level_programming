@@ -1,18 +1,22 @@
 #!/usr/bin/python3
-"""
-Function that print the fist and last name a square
-Return: none
-"""
+# 4-print_square.py
+"""Defines a square-printing function."""
 
 
 def print_square(size):
-    """Print the square with the caracter #"""
+    """Print a square with the # character.
 
-    if type(size) is not int:
+    Args:
+        size (int): The height/width of the square.
+    Raises:
+        TypeError: If size is not an integer.
+        ValueError: If size is < 0
+    """
+    if not isinstance(size, int):
         raise TypeError("size must be an integer")
     if size < 0:
         raise ValueError("size must be >= 0")
+
     for i in range(size):
-        for j in range(size):
-            print("#", end="")
+        [print("#", end="") for j in range(size)]
         print("")

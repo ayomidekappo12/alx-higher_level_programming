@@ -1,28 +1,36 @@
 #!/usr/bin/python3
-"""
-Function that divide a matrix
-Return the value in each element of the matrix
-"""
+# 2-matrix_divided.py
+"""Defines a matrix division function."""
 
 
 def matrix_divided(matrix, div):
-    """Function that divide a matrix"""
-    divide = []
-    errsize = "Each row of the matrix matrix must have the same size"
-    errtype = "matrix must be a matrix (list of list) of integers/floats"
-    rowback = len(matrix[0])
+    """Divide all elements of a matrix.
 
-    if type(div) not in [int, float]:
+    Args:
+        matrix (list): A list of lists of ints or floats.
+        div (int/float): The divisor.
+    Raises:
+        TypeError: If the matrix contains non-numbers.
+        TypeError: If the matrix contains rows of different sizes.
+        TypeError: If div is not an int or float.
+        ZeroDivisionError: If div is 0.
+    Returns:
+        A new matrix representing the result of the division.
+    """
+    if (not isinstance(matrix, list) or matrix == [] or
+            not all(isinstance(row, list) for row in matrix) or
+            not all((isinstance(ele, int) or isinstance(ele, float))
+                    for ele in [num for row in matrix for num in row])):
+        raise TypeError("matrix must be a matrix (list of lists) of "
+                        "integers/floats")
+
+    if not all(len(row) == len(matrix[0]) for row in matrix):
+        raise TypeError("Each row of the matrix must have the same size")
+
+    if not isinstance(div, int) and not isinstance(div, float):
         raise TypeError("div must be a number")
+
     if div == 0:
         raise ZeroDivisionError("division by zero")
-    for i in range(len(matrix)):
-        divide.append([])
-        if(len(matrix[i]) is not rowback):
-            raise TypeError(errsize)
-        for j in range(len(matrix[i])):
-            if type(matrix[i][j]) not in [int, float]:
-                raise TypeError(errtype)
-            divide[i].append(round(matrix[i][j] / div, 2))
-            rowback = len(matrix[i])
-    return divide
+
+    return ([list(map(lambda x: round(x / div, 2), row)) for row in matrix])
