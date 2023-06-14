@@ -6,5 +6,5 @@
 const loopArrays = ['C is fun', 'Python is cool', 'JavaScript is amazing'];
 
 for (let i = 0; i < loopArrays.length; i++) {
-    console.log(loopArrays[i]);
+  console.log(loopArrays[i]);
 }
