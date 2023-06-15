@@ -1,6 +1,6 @@
 #!/usr/bin/node
 // Write a script that prints the addition of 2 integers
-function addnumbers(num1, num2) {
+function addnumbers (num1, num2) {
   return num1 + num2;
 }
 
