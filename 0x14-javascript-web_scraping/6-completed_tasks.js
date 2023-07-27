@@ -3,19 +3,21 @@
 
 const request = require('request');
 
-function countCompletedTasksByUser(todos) {
-  const completedTasksByUser = {};
+request.get(process.argv[2], { json: true }, (error, response, body) => {
+  if (error) {
+    console.log(error);
+    return;
+  }
 
-  todos.forEach((todo) => {
+  const tasksCompleted = {};
+  body.forEach((todo) => {
     if (todo.completed) {
-      const userId = todo.userId;
-      if (completedTasksByUser[userId]) {
-        completedTasksByUser[userId]++;
+      if (!tasksCompleted[todo.userId]) {
+        tasksCompleted[todo.userId] = 1;
       } else {
-        completedTasksByUser[userId] = 1;
+        tasksCompleted[todo.userId] += 1;
       }
     }
   });
-
-  return completedTasksByUser;
-}
+  console.log(tasksCompleted);
+});
